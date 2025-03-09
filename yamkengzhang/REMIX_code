@@ -1,0 +1,22 @@
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.28;
+
+contract HealthRecord {
+    struct Record {
+        string date;
+        string checkItem;
+        string result;
+    }
+
+    mapping(address => Record[]) private records;
+
+    // 添加新的健檢記錄
+    function addRecord(string memory date, string memory checkItem, string memory result) public {
+        records[msg.sender].push(Record(date, checkItem, result));
+    }
+
+    // 查詢自己的所有健檢記錄
+    function getMyRecords() public view returns (Record[] memory) {
+        return records[msg.sender];
+    }
+}
